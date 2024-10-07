@@ -45,12 +45,16 @@ https://templatemo.com/tm-518-sentra
             <div id="main-nav" class="collapse navbar-collapse">
                 <nav>
                     <ul class="nav navbar-nav">
-                        <li><a href="#top">Home</a></li>
-                        <li><a href="#featured">Featured</a></li>
+                      {% for main in main_block %}
+                        <li>
+                          <a href="{{main.link}}">{{main.link_name}}</a>
+                        </li>
+                      {% endfor %}  
+                        {% comment %} <li><a href="#featured">Featured</a></li>
                         <li><a href="#projects">Recent Projects</a></li>
                         <li><a href="#video">Presentation</a></li>
                         <li><a href="#blog">Blog Entries</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#contact">Contact Us</a></li> {% endcomment %}
                     </ul>
                 </nav>
             </div>
@@ -62,14 +66,16 @@ https://templatemo.com/tm-518-sentra
             </div>
             <nav>
                 <ul>
+                  {% for main in main_block %}
                     <li>
-                        <a href="#top">
+                        <a href="{{main.link}}">
                             <span class="rect"></span>
                             <span class="circle"></span>
-                            Home
+                            {{main.link_name}}
                         </a>
                     </li>
-                    <li>
+                  {% endfor %}  
+                    {% comment %} <li>
                         <a href="#featured">
                             <span class="rect"></span>
                             <span class="circle"></span>
@@ -103,11 +109,11 @@ https://templatemo.com/tm-518-sentra
                             <span class="circle"></span>
                             Contact Us
                         </a>
-                    </li>
+                    </li> {% endcomment %}
                 </ul>
             </nav>
             
-						<ul class="social-icons">
+			<ul class="social-icons">
               {% for social in socials %}
                 <li>
                   <a href="{{social.url}}" target="_blank" title="{{social.title}}">
@@ -129,23 +135,23 @@ https://templatemo.com/tm-518-sentra
         <div class="slider">
             <div class="Modern-Slider content-section" id="top">
                 <!-- Item -->
-									{% for text in header_text %}
-                    <div class="item item-1">
-                        <div class="img-fill">
-                        <div class="image"></div>
+				        {% for text in header_text %}
+                    <div class="{{text.class_item}}">
+                        <div class="{{text.class_img}}">
+                        <div class="{{text.class_image}}"></div>
                         <div class="info">
                             <div>
                             <h1>{{text.title1}}<br>{{text.title2}}</h1>
                             <p>{{text.description1}}<br>
                                 {{text.description2}}</p>
                             <div class="white-button button">
-                                <a href="#featured">Discover More</a>
+                                <a href="{{text.link}}">{{text.link_name}}</a>
                             </div>
                             </div>
                             </div>
                         </div>
                     </div>
-									{% endfor %}	
+				        {% endfor %}	
                 <!-- // Item -->
                 <!-- Item -->
                 {% comment %} <div class="item item-2">
@@ -155,7 +161,7 @@ https://templatemo.com/tm-518-sentra
                         <div>
                           <h1>Please tell <br>your friends</h1>
                           <p>Support templatemo by sharing a link to your friends.
-							<br>Thank you for helping us.</p>
+							                <br>Thank you for helping us.</p>
                           
                           <div class="white-button button">
                               <a href="#featured">Share More</a>
@@ -190,26 +196,28 @@ https://templatemo.com/tm-518-sentra
         <div class="page-content">
             <section id="featured" class="content-section">
                 <div class="section-heading">
-                    <h1>Featured<br><em>Places</em></h1>
-                    <p>Praesent pellentesque efficitur magna, 
-                    <br>sed pellentesque neque malesuada vitae.</p>
+                    <h1>{{featured_places.tag}}<br><em>{{featured_places.title}}</em></h1>
+                    <p>{{featured_places.description1}} 
+                    <br>{{featured_places.description2}}</p>
                 </div>
                 <div class="section-content">
                     <div class="owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="image">
-                                <img src="{% static "img/featured_1.jpg" %}" alt="">
-                                <div class="featured-button button">
-                                    <a href="#projects">Continue Reading</a>
-                                </div>
-                            </div>
-                            <div class="text-content">
-                                <h4>Lorem ipsum dolor</h4>
-                                <span>Proin et sapien</span>
-                                <p>#1 You are allowed to use Sentra Template for your business or client websites. You can use it for commercial or non-commercial or educational purposes.</p>
-                            </div>
-                        </div>
-                        <div class="item">
+                      {% for blocks in featured_blocks %}
+                          <div class="item">
+                              <div class="image">
+                                  <img src="{{blocks.image.url}}" alt="">
+                                  <div class="featured-button button">
+                                      <a href="#projects">Continue Reading</a>
+                                  </div>
+                              </div>
+                              <div class="text-content">
+                                  <h4>{{blocks.title}}</h4>
+                                  <span>{{blocks.text}}</span>
+                                  <p>{{blocks.description}}</p>
+                              </div>
+                          </div>
+                      {% endfor %}  
+                        {% comment %} <div class="item">
                             <div class="image">
                                 <img src="{% static "img/featured_2.jpg" %}" alt="">
                                 <div class="featured-button button">
@@ -312,44 +320,47 @@ https://templatemo.com/tm-518-sentra
                                 <span>Convallis</span>
                                 <p>#9 Suspendisse suscipit nulla sed nisl fermentum, auctor suscipit nunc rhoncus. Proin faucibus metus diam, nec hendrerit purus pharetra in.</p>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
             </section>
             <section id="projects" class="content-section">
                 <div class="section-heading">
-                    <h1>Recent<br><em>Projects</em></h1>
-                    <p>Praesent pellentesque efficitur magna, 
-                    <br>sed pellentesque neque malesuada vitae.</p>
+                    <h1>{{recent.tag}}<br><em>{{recent.title}}</em></h1>
+                    <p>{{recent.description1}}
+                    <br>{{recent.description2}}</p>
                 </div>
                 <div class="section-content">
                     <div class="masonry">
                         <div class="row">
+                          {% for blocks in projects_blocks %}
                             <div class="item">
                                 <div class="col-md-8">
-                                    <a href="{% static "img/portfolio_big_1.jpg" %}" data-lightbox="image"><img src="img/portfolio_1.jpg" alt="image 1"></a>
+                                    <a href="{{blocks.link_name}}" data-lightbox="image"><img src="{{blocks.image.url}}" alt="image 1"></a>
                                 </div>
                             </div>
-                            <div class="item second-item">
+                          {% endfor %}  
+                            {% comment %} <div class="item second-item">
                                 <div class="col-md-4">
-                                    <a href="{% static "img/portfolio_big_2.jpg" %}" data-lightbox="image"><img src="img/portfolio_2.jpg" alt="image 2"></a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-md-4">
-                                    <a href="{% static "img/portfolio_big_3.jpg" %}" data-lightbox="image"><img src="img/portfolio_3.jpg" alt="image 3"></a>
+                                    <a href="{% static "img/portfolio_big_2.jpg" %}" data-lightbox="image"><img src="{% static "img/portfolio_2.jpg" %}" alt="image 2"></a>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="col-md-4">
-                                    <a href="{% static "img/portfolio_big_4.jpg" %}" data-lightbox="image"><img src="img/portfolio_4.jpg" alt="image 4"></a>
+                                    <a href="{% static "img/portfolio_big_3.jpg" %}" data-lightbox="image"><img src="{% static "img/portfolio_3.jpg" %}" alt="image 3"></a>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="col-md-4">
+                                    <a href="{% static "img/portfolio_big_4.jpg" %}" data-lightbox="image"><img src="{% static "img/portfolio_4.jpg" %}" alt="image 4"></a>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="col-md-8">
-                                    <a href="{% static "img/portfolio_big_5.jpg" %}" data-lightbox="image"><img src="img/portfolio_5.jpg" alt="image 5"></a>
+                                    <a href="{% static "img/portfolio_big_5.jpg" %}" data-lightbox="image"><img src="{% static "img/portfolio_5.jpg" %}" alt="image 5"></a>
                                 </div>
                             </div>
+                             {% endcomment %}
                         </div>
                     </div>
                 </div>            
@@ -358,11 +369,11 @@ https://templatemo.com/tm-518-sentra
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-heading">
-                            <h1>This is a <em>company</em> presentation.</h1>
-                            <p>Praesent pellentesque efficitur magna, sed pellentesque neque malesuada vitae.</p>
+                            <h1>{{videos.tag1}} <em>{{videos.tag2}}</em> {{videos.tag3}}</h1>
+                            <p>{{videos.title}}</p>
                         </div>
                         <div class="text-content">
-                            <p>In eget ipsum sed lorem vehicula luctus. Curabitur non dolor rhoncus, hendrerit justo sit amet, vestibulum turpis. Pellentesque id auctor tellus, vel ultricies augue. Duis condimentum aliquet blandit. Fusce rhoncus et eros ut pharetra. Phasellus convallis ultricies ligula ac gravida.</p>
+                            <p>{{videos.description}}</p>
                         </div>
                         <div class="accent-button button">
                             <a href="#blog">Continue Reading</a>
@@ -370,11 +381,11 @@ https://templatemo.com/tm-518-sentra
                     </div>
                     <div class="col-md-12">
                         <div class="box-video">
-                            <div class="bg-video" style="background-image: url(https://unsplash.imgix.net/photo-1425036458755-dc303a604201?fit=crop&fm=jpg&q=75&w=1000);">
+                            <div class="bg-video" style="background-image: url({{videos.link_url1}};">
                                 <div class="bt-play">Play</div>
                             </div>
                             <div class="video-container">
-                                <iframe width="100%" height="520" src="https://www.youtube.com/embed/j-_7Ub-Zkow?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                                <iframe width="100%" height="520" src="{{videos.link_url2}}" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
                             </div>
                         </div>
                     </div>
@@ -382,37 +393,39 @@ https://templatemo.com/tm-518-sentra
             </section>
             <section id="blog" class="content-section">
                 <div class="section-heading">
-                    <h1>Blog<br><em>Entries</em></h1>
-                    <p>Curabitur hendrerit mauris mollis ipsum vulputate rutrum. 
-                    <br>Phasellus luctus odio eget dui imperdiet.</p>
+                    <h1>{{entries.tag1}}<br><em>{{entries.tag2}}</em></h1>
+                    <p>{{entries.title}}
+                    <br>{{entries.description}}</p>
                 </div>
                 <div class="section-content">
                     <div class="tabs-content">
                         <div class="wrapper">
                             <ul class="tabs clearfix" data-tabgroup="first-tab-group">
-                              <li><a href="#tab1" class="active">July 2018</a></li>
-                              <li><a href="#tab2">June 2018</a></li>
-                              <li><a href="#tab3">May 2018</a></li>
-                              <li><a href="#tab4">April 2018</a></li>
+                              <li><a href="{{entries.url_tab1}}" class="active">{{entries.name_tab1}}</a></li>
+                              <li><a href="{{entries.url_tab2}}">{{entries.name_tab2}}</a></li>
+                              <li><a href="{{entries.url_tab3}}">{{entries.name_tab3}}</a></li>
+                              <li><a href="{{entries.url_tab4}}">{{entries.name_tab4}}</a></li>
                             </ul>
                             <section id="first-tab-group" class="tabgroup">
                                 <div id="tab1">
                                     <ul>
-                                        <li>
-                                            <div class="item">
-                                                <img src="{% static "img/blog_1.jpg" %}" alt="">
-                                                <div class="text-content">
-                                                    <h4>Integer ultrices augue</h4>
-                                                    <span>25 July 2018</span>
-                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
-                                                    
-                                                    <div class="accent-button button">
-                                                        <a href="#contact">Continue Reading</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
+                                        {% for blogs in entries_blogs1 %}
+                                          <li>
+                                              <div class="item">
+                                                  <img src="{{blogs.image.url}}" alt="">
+                                                  <div class="text-content">
+                                                      <h4>{{blogs.tag}}</h4>
+                                                      <span>{{blogs.title}}</span>
+                                                      <p>{{blogs.description}}</p>
+                                                      
+                                                      <div class="accent-button button">
+                                                          <a href="#contact">Continue Reading</a>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </li>
+                                        {% endfor %} 
+                                        {% comment %} <li>
                                             <div class="item">
                                                 <img src="{% static "img/blog_2.jpg" %}" alt="">
                                                 <div class="text-content">
@@ -439,26 +452,28 @@ https://templatemo.com/tm-518-sentra
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
+                                        </li> {% endcomment %}
                                     </ul>
                                 </div>
                                 <div id="tab2">
                                     <ul>
+                                      {% for blogs in entries_blogs2 %}
                                         <li>
                                             <div class="item">
-                                                <img src="{% static "img/blog_3.jpg" %}" alt="">
+                                                <img src="{{blogs.image.url}}" alt="">
                                                 <div class="text-content">
-                                                    <h4>Sed at massa turpis</h4>
-                                                    <span>30 June 2018</span>
-                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
-                                                    
+                                                    <h4>{{blogs.tag}}</h4>
+                                                    <span>{{blogs.title}}</span>
+                                                    <p>{{blogs.description}}</p></p>
+                                                  
                                                     <div class="accent-button button">
                                                         <a href="#contact">Continue Reading</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>
+                                      {% endfor %}   
+                                        {% comment %} <li>
                                             <div class="item">
                                                 <img src="{% static "img/blog_1.jpg" %}" alt="">
                                                 <div class="text-content">
@@ -485,26 +500,29 @@ https://templatemo.com/tm-518-sentra
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
+                                        </li> {% endcomment %}
                                     </ul>
                                 </div>
                                 <div id="tab3">
                                     <ul>
+                                      {% for blogs in entries_blogs3 %}
                                         <li>
                                             <div class="item">
-                                                <img src="{% static "img/blog_2.jpg" %}" alt="">
+                                                <img src="{{blogs.image.url}}" alt="">
                                                 <div class="text-content">
-                                                    <h4>Cras commodo odio ut</h4>
-                                                    <span>26 May 2018</span>
-                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
-                                                    
+                                                    <h4>{{blogs.tag}}</h4>
+                                                    <span>{{blogs.title}}</span>
+                                                    <p>{{blogs.description}}</p></p>
+                                                  
                                                     <div class="accent-button button">
                                                         <a href="#contact">Continue Reading</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>
+                                      {% endfor %}   
+
+                                        {% comment %} <li>
                                             <div class="item">
                                                 <img src="{% static "img/blog_1.jpg" %}" alt="">
                                                 <div class="text-content">
@@ -531,26 +549,30 @@ https://templatemo.com/tm-518-sentra
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
+                                        </li> {% endcomment %}
+
                                     </ul>
                                 </div>
                                 <div id="tab4">
                                     <ul>
+                                      {% for blogs in entries_blogs4 %}
                                         <li>
                                             <div class="item">
-                                                <img src="{% static "img/blog_1.jpg" %}" alt="">
+                                                <img src="{{blogs.image.url}}" alt="">
                                                 <div class="text-content">
-                                                    <h4>Lorem ipsum dolor sit</h4>
-                                                    <span>26 April 2018</span>
-                                                    <p>Nam vel egestas nisi. Nullam lobortis magna at enim venenatis luctus. Nam finibus, mauris eu dictum iaculis, dolor tortor cursus quam, in volutpat augue lectus sed magna. Integer mollis lorem quis ipsum maximus finibus.</p>
-                                                    
+                                                    <h4>{{blogs.tag}}</h4>
+                                                    <span>{{blogs.title}}</span>
+                                                    <p>{{blogs.description}}</p></p>
+                                                  
                                                     <div class="accent-button button">
                                                         <a href="#contact">Continue Reading</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>                                
-                                        <li>
+                                        </li>
+                                      {% endfor %}    
+
+                                        {% comment %} <li>
                                             <div class="item">
                                             <img src="{% static "img/blog_3.jpg" %}" alt="">
                                                 <div class="text-content">
@@ -577,7 +599,8 @@ https://templatemo.com/tm-518-sentra
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
+                                        </li> {% endcomment %}
+
                                     </ul>
                                 </div>
                             </section> 
@@ -598,9 +621,9 @@ https://templatemo.com/tm-518-sentra
                 </div>
                 <div id="contact-content">
                     <div class="section-heading">
-                        <h1>Contact<br><em>Sentra</em></h1>
-                        <p>Curabitur hendrerit mauris mollis ipsum vulputate rutrum. 
-                        <br>Phasellus luctus odio eget dui imperdiet.</p>
+                        <h1>{{contact.tag}}<br><em>{{contact.title}}</em></h1>
+                        <p>{{contact.description1}}
+                        <br>{{contact.description2}}</p>
                         
                     </div>
                     <div class="section-content">
@@ -623,7 +646,7 @@ https://templatemo.com/tm-518-sentra
                                 </div>
                                 <div class="col-md-12">
                                   <fieldset>
-                                    <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
+                                    <textarea name="content" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
                                   </fieldset>
                                 </div>
                                 <div class="col-md-12">
